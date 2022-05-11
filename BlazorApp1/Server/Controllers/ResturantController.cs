@@ -6,17 +6,17 @@ namespace BlazorApp1.Server.Controllers
     [Route("/api/[controller]")]
     public class ResturantController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IResturantService _resturantService;
 
-        public ResturantController(DataContext context)
+        public ResturantController(IResturantService resturantSevice)
         {
-            _context = context;
+            _resturantService = resturantSevice;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Resturant>>> GetResult()
+        public async Task<ActionResult<ServiceResponse<List<Resturant>>>> GetResult()
         {
-            var Resturants = await _context.Resturants.ToListAsync();
-            return Ok(Resturants);
+            var result = await _resturantService.GetResturantsAsync();
+            return Ok(result);
         }
     }
 }

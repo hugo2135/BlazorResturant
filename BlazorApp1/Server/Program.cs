@@ -1,6 +1,7 @@
 global using BlazorApp1.Shared;
 global using Microsoft.EntityFrameworkCore;
 global using BlazorApp1.Server.Controllers.Data;
+global using BlazorApp1.Server.Services.ResturantService;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IResturantService, ResturantService>();
 
 var app = builder.Build();
 
