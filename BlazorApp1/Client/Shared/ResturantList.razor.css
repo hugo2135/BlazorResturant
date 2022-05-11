@@ -1,0 +1,44 @@
+﻿.media-img {
+    max-height: 500px;
+    max-width: 50px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    transition: transform .2s;
+}
+
+    .media-img:hover{
+        transform: scale(1.2);
+    }
+
+.media {
+    display: flex;
+    align-items: flex-start;
+}
+
+.media-body {
+    flex: 1;
+}
+
+.media-img-wrapper{
+    width: 200px;
+    text-align: center;
+}
+
+.in-table{
+    text-align: left;
+    bottom: 3px;
+}
+
+.price{
+    color: darkgreen;
+}
+
+@media (max-width: 1023.98px){
+    .media {
+        flex-direction: column;
+    }
+    .media-img-wrapper{
+        width: 100%;
+        height: auto;
+    }
+}

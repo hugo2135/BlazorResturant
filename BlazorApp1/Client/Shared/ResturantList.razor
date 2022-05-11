@@ -1,0 +1,53 @@
+﻿@inject HttpClient Http
+<h3>ResturantList</h3>
+<ul class="list-unstyled">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Style</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var resturant in Resturants)
+            {
+                <tr>
+                    <th><img class="media-img" src="@resturant.ImageURL"/></th>
+                    <th><a class="in-table" href="#">@resturant.Name</a></th>
+                    <th><a class="in-table">@resturant.Style</a></th>
+                    <th><h5 class="in-table price">@resturant.PriceLabel(@resturant.Price)</h5></th>
+                </tr>
+            }
+        </tbody>
+    </table>
+@*    @foreach (var resturant in Resturants)
+    {
+        <li class="media my-3">
+            <div class="media-img-wrapper mr-2">
+                <a href="#">
+                    <img class="media-img" src="@resturant.ImageURL" alt="@resturant.Name"/>
+                </a>
+            </div>
+            <div class="media-body">
+                <a href="#">
+                    <h4 class="mb-0">@resturant.Name</h4>
+                </a>
+                <p>@resturant.Style</p>
+                <h5 class="price">@resturant.PriceLabel(@resturant.Price)</h5>
+            </div>
+        </li>
+    }*@
+</ul>
+
+@code {
+    private static List<Resturant> Resturants = new List<Resturant>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Http.GetFromJsonAsync<List<Resturant>>("api/Resturant");
+        if (result != null)
+            Resturants = result;
+    }
+}
