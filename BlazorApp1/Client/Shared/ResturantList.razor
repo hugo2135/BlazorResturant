@@ -1,4 +1,5 @@
 ﻿@inject IResturantService ResturantService
+@inject NavigationManager NavigationManager
 
 @if(ResturantService.Resturants == null || ResturantService.Resturants.Count == 0)
 {
@@ -7,23 +8,28 @@
 else
 {
     <h3>ResturantList</h3>
+    <button class="btn btn-primary" @onclick="CreateResturant">Create</button>
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">Image</th>
-                <th scope="col">Name</th>
-                <th scope="col">Style</th>
-                <th scope="col">Price</th>
+                <td scope="col">Image</td>
+                <td scope="col">Name</td>
+                <td scope="col">Style</td>
+                <td scope="col">Price</td>
+                <td scope="col">Option</td>
             </tr>
         </thead>
         <tbody>
             @foreach (var resturant in ResturantService.Resturants)
             {
                 <tr>
-                    <th><img class="media-img" src="@resturant.ImageURL"/></th>
-                    <th><a class="in-table" href="#">@resturant.Name</a></th>
-                    <th><a class="in-table">@resturant.Style</a></th>
-                    <th><h5 class="in-table price">@resturant.PriceLabel(@resturant.Price)</h5></th>
+                    <td><img class="media-img" src="@resturant.ImageURL"/></td>
+                    <td><a class="in-table" href="#">@resturant.Name</a></td>
+                    <td><p class="in-table">@resturant.Style</p></td>
+                    <td><h5 class="in-table price">@resturant.PriceLabel(@resturant.Price)</h5></td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(()=>ShowResturant(resturant.Id))"><i class="oi oi-pencil"></i></button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -54,5 +60,15 @@ else
     protected override async Task OnInitializedAsync()
     {
         await ResturantService.GetResturants();
+    }
+
+    void ShowResturant(int Id)
+    {
+        NavigationManager.NavigateTo($"/Resturant/{Id}");
+    }
+
+    void CreateResturant()
+    {
+        NavigationManager.NavigateTo("/Resturant");
     }
 }
